@@ -64,12 +64,12 @@ jobs:
         uses: ncipollo/release-action@v1.13.0
         with:
           prerelease: true
-          name: ${{ env.GITHUB_WORKFLOW }} v${{ NEXT_RELEASE_VERSION }}
-          tag: v${{ NEXT_RELEASE_VERSION }}
+          name: ${{ env.GITHUB_WORKFLOW }} v${{ env.NEXT_RELEASE_VERSION }}
+          tag: v${{ env.NEXT_RELEASE_VERSION }}
           allowUpdates: true
           draft: true
           artifactErrorsFailBuild: true
           updateOnlyUnreleased: true
           generateReleaseNotes: false
           artifacts: >-
-            ${{ env.GITHUB_WORKFLOW }}-v${{ NEXT_RELEASE_VERSION }}.tar.gz
+            ${{ env.GITHUB_WORKFLOW }}-v${{ env.NEXT_RELEASE_VERSION }}.tar.gz
