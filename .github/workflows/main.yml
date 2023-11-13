@@ -56,6 +56,7 @@ jobs:
             -L \
             -o $GITHUB_WORKFLOW-v$NEXT_RELEASE_VERSION.tar.gz \
             https://github.com/opicaud/$GITHUB_WORKFLOW/archive/refs/tags/v$NEXT_RELEASE_VERSION.tar.gz
+          ls
       - name: CREATE RELEASE
         if: steps.semantic.outputs.new_release_published == 'true'
         env:
