@@ -1,5 +1,5 @@
 ---
-name: rules_pact
+name: rules_foo
 on:
   push:
     branches:
