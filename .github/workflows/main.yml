@@ -49,10 +49,11 @@ jobs:
       - name: FETCH THE SOURCE ARCHIVE
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
+          echo $GITHUB_WORKFLOW $NEXT_RELEASE_VERSION
           curl \
             -L \
             -o $GITHUB_WORKFLOW-v$NEXT_RELEASE_VERSION.tar.gz \
-            https://github.com/opicaud/$env:GITHUB_WORKFLOW/archive/refs/tags/v$NEXT_RELEASE_VERSION.tar.gz
+            https://github.com/opicaud/$GITHUB_WORKFLOW/archive/refs/tags/v$NEXT_RELEASE_VERSION.tar.gz
       - name: CREATE RELEASE
         if: steps.semantic.outputs.new_release_published == 'true'
         id: create-release
@@ -67,4 +68,4 @@ jobs:
           updateOnlyUnreleased: true
           generateReleaseNotes: false
           artifacts: >-
-            $env:GITHUB_WORKFLOW-v$NEXT_RELEASE_VERSION.tar.gz
+            $GITHUB_WORKFLOW-v$NEXT_RELEASE_VERSION.tar.gz
