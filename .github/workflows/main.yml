@@ -57,6 +57,7 @@ jobs:
         id: create-release
         uses: ncipollo/release-action@v1.13.0
         with:
+          prerelease: true
           name: $env:GITHUB_WORKFLOW v$NEXT_RELEASE_VERSION
           tag: v$NEXT_RELEASE_VERSION
           allowUpdates: true
