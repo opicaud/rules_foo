@@ -48,6 +48,8 @@ jobs:
           echo $GITHUB_WORKFLOW $NEXT_RELEASE_VERSION
       - name: FETCH THE SOURCE ARCHIVE
         if: steps.semantic.outputs.new_release_published == 'true'
+        env:
+          NEXT_RELEASE_VERSION: ${{ steps.semantic.outputs.new_release_version }}
         run: |
           echo $GITHUB_WORKFLOW $NEXT_RELEASE_VERSION
           curl \
@@ -56,11 +58,12 @@ jobs:
             https://github.com/opicaud/$GITHUB_WORKFLOW/archive/refs/tags/v$NEXT_RELEASE_VERSION.tar.gz
       - name: CREATE RELEASE
         if: steps.semantic.outputs.new_release_published == 'true'
-        id: create-release
+        env:
+          NEXT_RELEASE_VERSION: ${{ steps.semantic.outputs.new_release_version }}
         uses: ncipollo/release-action@v1.13.0
         with:
           prerelease: true
-          name: $env:GITHUB_WORKFLOW v$NEXT_RELEASE_VERSION
+          name: $GITHUB_WORKFLOW v$NEXT_RELEASE_VERSION
           tag: v$NEXT_RELEASE_VERSION
           allowUpdates: true
           draft: true
