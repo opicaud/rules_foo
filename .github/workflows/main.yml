@@ -41,21 +41,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Do something when a new release published
+        if: steps.semantic.outputs.new_release_published == 'true'
         env:
           NEXT_RELEASE_VERSION: ${{ steps.semantic.outputs.new_release_version }}
         run: |
-          echo $env:$NEXT_RELEASE_VERSION
-          echo ${{ steps.semantic.outputs.new_release_published }}
-          echo ${{ steps.semantic.outputs.new_release_version }}
-          echo ${{ steps.semantic.outputs.new_release_major_version }}
-          echo ${{ steps.semantic.outputs.new_release_minor_version }}
-          echo ${{ steps.semantic.outputs.new_release_patch_version }}
+          echo $GITHUB_WORKFLOW $NEXT_RELEASE_VERSION
       - name: FETCH THE SOURCE ARCHIVE
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           curl \
             -L \
-            -o $env:GITHUB_WORKFLOW-v$NEXT_RELEASE_VERSION.tar.gz \
+            -o $GITHUB_WORKFLOW-v$NEXT_RELEASE_VERSION.tar.gz \
             https://github.com/opicaud/$env:GITHUB_WORKFLOW/archive/refs/tags/v$NEXT_RELEASE_VERSION.tar.gz
       - name: CREATE RELEASE
         if: steps.semantic.outputs.new_release_published == 'true'
